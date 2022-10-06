@@ -1,0 +1,19 @@
+name: Backport gem
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Backport gem
+        uses: cadwallion/publish-rubygems-action@master
+        env:
+          GITHUB_TOKEN: ${{secrets.CREATE_TAG}}
+          RUBYGEMS_API_KEY: ${{secrets.RELEASE}}
+          RELEASE_COMMAND: rake release
